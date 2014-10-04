@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+use Nubs\PwMan\Application;
+
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require __DIR__ . '/../vendor/autoload.php';
+} elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
+    require __DIR__ . '/../../../autoload.php';
+} else {
+    file_put_contents('php://stderr', "Composer not properly set up.  Run 'composer install'.\n");
+    exit(1);
+}
+
+(new Application())->run();

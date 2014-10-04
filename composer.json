@@ -1,0 +1,23 @@
+{
+    "name": "nubs/pwman",
+    "description": "A password manager than handles encrypted passwords",
+    "keywords": ["password", "generator", "manager"],
+    "authors": [
+        {
+            "name": "Spencer Rinehart",
+            "email": "anubis@overthemonkey.com",
+            "role": "Developer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "symfony/console": "~2.5",
+        "symfony/process": "~2.5"
+    },
+    "bin": ["bin/pwman"],
+    "autoload": {
+        "psr-4": { 
+          "Nubs\\PwMan\\": "src"
+        }
+    }
+}
