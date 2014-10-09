@@ -6,6 +6,7 @@ use Nubs\PwMan\PasswordManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\ProcessBuilder;
@@ -25,7 +26,8 @@ class Get extends Command
         $this->setName('get')
             ->setDescription('Get password(s) for the specified application(s)')
             ->addArgument('password-file', InputArgument::REQUIRED, 'The path to the encrypted password file')
-            ->addArgument('application', InputArgument::OPTIONAL, 'The application(s) to query');
+            ->addArgument('application', InputArgument::OPTIONAL, 'The application(s) to query')
+            ->addOption('output-format', 'f', InputOption::VALUE_REQUIRED, 'The output format (valid: json)', 'json');
     }
 
     /**
@@ -50,6 +52,23 @@ class Get extends Command
 
         $matchingPasswords = $passwordManager->matchingApplication($application);
 
-        $output->writeln(json_encode($matchingPasswords, JSON_PRETTY_PRINT));
+        $output->writeln($this->_formatPasswords($matchingPasswords, $input->getOption('output-format')));
+    }
+
+    /**
+     * Format the passwords according to the output format.
+     *
+     * @param array<array> $passwords The passwords to format.
+     * @param string $outputFormat The output format (valid: json).
+     * @return string The formatted passwords for display.
+     */
+    private function _formatPasswords(array $passwords, $outputFormat)
+    {
+        switch ($outputFormat) {
+            case 'json':
+                return json_encode($passwords, JSON_PRETTY_PRINT);
+            default:
+                throw new InvalidArgumentException("Invalid format: {$outputFormat}");
+        }
     }
 }
