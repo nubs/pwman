@@ -11,15 +11,21 @@ class PasswordFile
     /** @type string The file path to the password file. */
     private $_passwordFile;
 
+    /** @type \Symfony\Component\Process\ProcessBuilder The process builder. */
+    private $_processBuilder;
+
     /**
      * Initialize the password file.
      *
      * @api
      * @param string $passwordFile The file path to the password file.
+     * @param \Symfony\Component\Process\ProcessBuilder $processBuilder The
+     *     command creator for interacting with the process file.
      */
-    public function __construct($passwordFile)
+    public function __construct($passwordFile, ProcessBuilder $processBuilder)
     {
         $this->_passwordFile = $passwordFile;
+        $this->_processBuilder = $processBuilder;
     }
 
     /**
@@ -30,8 +36,7 @@ class PasswordFile
      */
     public function getPasswords()
     {
-        $gpgBuilder = new ProcessBuilder();
-        $gpg = $gpgBuilder->setPrefix('gpg')->setArguments(['--decrypt', $this->_passwordFile])->getProcess();
+        $gpg = $this->_processBuilder->setPrefix('gpg')->setArguments(['--decrypt', $this->_passwordFile])->getProcess();
 
         $gpg->run();
         if (!$gpg->isSuccessful()) {
