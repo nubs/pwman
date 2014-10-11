@@ -35,7 +35,7 @@ class Get extends Command
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input The command input.
      * @param \Symfony\Component\Console\Output\OutputInterface $output The command output.
-     * @return void
+     * @return int The return status
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
