@@ -18,6 +18,6 @@ class Application extends SymfonyApplication
 
         $getCommand = new Get();
         $this->add($getCommand);
-        $this->setDefaultCommand($getCommand);
+        $this->setDefaultCommand('get');
     }
 }
