@@ -1,7 +1,7 @@
 <?php
 namespace Nubs\PwMan;
 
-use Symfony\Component\Process\ProcessBuilder;
+use GnuPG;
 
 /**
  * Manage the password file including encryption and encoding.
@@ -11,21 +11,20 @@ class PasswordFile
     /** @type string The file path to the password file. */
     private $_passwordFile;
 
-    /** @type \Symfony\Component\Process\ProcessBuilder The process builder. */
-    private $_processBuilder;
+    /** @type \GnuPG The gpg resource. */
+    private $_gpg;
 
     /**
      * Initialize the password file.
      *
      * @api
      * @param string $passwordFile The file path to the password file.
-     * @param \Symfony\Component\Process\ProcessBuilder $processBuilder The
-     *     command creator for interacting with the process file.
+     * @param \GnuPG $gpg The gpg resource for interacting with the password file.
      */
-    public function __construct($passwordFile, ProcessBuilder $processBuilder)
+    public function __construct($passwordFile, GnuPG $gpg)
     {
         $this->_passwordFile = $passwordFile;
-        $this->_processBuilder = $processBuilder;
+        $this->_gpg = $gpg;
     }
 
     /**
@@ -36,13 +35,16 @@ class PasswordFile
      */
     public function getPasswords()
     {
-        $gpg = $this->_processBuilder->setPrefix('gpg')->setArguments(['--decrypt', $this->_passwordFile])->getProcess();
-
-        $gpg->run();
-        if (!$gpg->isSuccessful()) {
+        $contents = file_get_contents($this->_passwordFile);
+        if ($contents === false) {
             return null;
         }
 
-        return json_decode($gpg->getOutput(), true);
+        $decryptedContents = $this->_gpg->decrypt($contents);
+        if ($decryptedContents === false) {
+            return null;
+        }
+
+        return json_decode($decryptedContents, true);
     }
 }

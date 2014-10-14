@@ -1,6 +1,7 @@
 <?php
 namespace Nubs\PwMan\Command;
 
+use GnuPG;
 use Nubs\PwMan\PasswordFile;
 use Nubs\PwMan\PasswordManager;
 use Symfony\Component\Console\Command\Command;
@@ -9,7 +10,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * A symonfy console command to get passwords from a password file.
@@ -39,7 +39,7 @@ class Get extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $passwordFile = new PasswordFile($input->getArgument('password-file'), new ProcessBuilder());
+        $passwordFile = new PasswordFile($input->getArgument('password-file'), new GnuPG());
         $passwords = $passwordFile->getPasswords();
         if ($passwords === null) {
             $stderr = $output instanceof ConsoleOutput ? $output->getErrorOutput() : $output;
