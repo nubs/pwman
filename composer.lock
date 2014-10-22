@@ -4,8 +4,116 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8bf45abf85b8dac3fb9f015e148671ea",
+    "hash": "0a5aa35921f4e7424e3cb488b62e3b67",
     "packages": [
+        {
+            "name": "nubs/sensible",
+            "version": "v0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nubs/sensible.git",
+                "reference": "6f902055dc94023c4e187046dd67c7c659249689"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nubs/sensible/zipball/6f902055dc94023c4e187046dd67c7c659249689",
+                "reference": "6f902055dc94023c4e187046dd67c7c659249689",
+                "shasum": ""
+            },
+            "require": {
+                "nubs/which": "~1.0",
+                "php": "~5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "suggest": {
+                "brianium/habitat": "For better access to environment variables (e.g., for mocking).",
+                "nubs/which": "For locating commands in PATH rather than using absolute paths.",
+                "symfony/process": "For executing the commands rather than just locating them."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nubs\\Sensible\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Spencer Rinehart",
+                    "email": "anubis@overthemonkey.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A library for finding sensible user programs, like editor, pager, and browser.",
+            "keywords": [
+                "browser",
+                "editor",
+                "environment",
+                "pager",
+                "sensible",
+                "user"
+            ],
+            "time": "2014-07-15 15:44:10"
+        },
+        {
+            "name": "nubs/which",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nubs/which.git",
+                "reference": "888d271d3776b7d989698b5e045aa269db29c47e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nubs/which/zipball/888d271d3776b7d989698b5e045aa269db29c47e",
+                "reference": "888d271d3776b7d989698b5e045aa269db29c47e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~5.4"
+            },
+            "require-dev": {
+                "brianium/habitat": "~1.0",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "suggest": {
+                "brianium/habitat": "For better access to environment variables (e.g., for mocking)."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nubs\\Which\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Spencer Rinehart",
+                    "email": "anubis@overthemonkey.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A library for locating commands in a PATH.",
+            "keywords": [
+                "executable",
+                "linux",
+                "path",
+                "script",
+                "which",
+                "windows"
+            ],
+            "time": "2014-07-10 00:07:25"
+        },
         {
             "name": "symfony/console",
             "version": "v2.5.5",
@@ -60,6 +168,53 @@
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
             "time": "2014-09-25 09:53:56"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v2.5.5",
+            "target-dir": "Symfony/Component/Process",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Process.git",
+                "reference": "8a1ec96c4e519cee0fb971ea48a1eb7369dda54b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/8a1ec96c4e519cee0fb971ea48a1eb7369dda54b",
+                "reference": "8a1ec96c4e519cee0fb971ea48a1eb7369dda54b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Process\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-09-23 05:25:11"
         }
     ],
     "packages-dev": [],

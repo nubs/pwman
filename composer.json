@@ -12,7 +12,10 @@
     "license": "MIT",
     "require": {
         "ext-gnupg": "~1.3.3",
-        "symfony/console": "~2.5"
+        "symfony/console": "~2.5",
+        "symfony/process": "~2.5",
+        "nubs/which": "~1.0",
+        "nubs/sensible": "~0.4.0"
     },
     "bin": ["bin/pwman"],
     "autoload": {

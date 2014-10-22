@@ -36,4 +36,25 @@ class PasswordManager
 
         return array_values(array_filter($this->_passwords, $passwordMatchesApplication));
     }
+
+    /**
+     * Add the new application to the password list.
+     *
+     * @param array $newApplication The application information.
+     * @return void
+     */
+    public function addPassword(array $newApplication)
+    {
+        $this->_passwords[] = $newApplication;
+    }
+
+    /**
+     * Get the passwords.
+     *
+     * @return array<array> The passwords.
+     */
+    public function getPasswords()
+    {
+        return $this->_passwords;
+    }
 }
