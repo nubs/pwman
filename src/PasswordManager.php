@@ -1,6 +1,8 @@
 <?php
 namespace Nubs\PwMan;
 
+use Exception;
+
 /**
  * Manage the collection of passwords.
  */
@@ -34,7 +36,7 @@ class PasswordManager
             return isset($password['application']) && preg_match("/{$application}/i", $password['application']);
         };
 
-        return array_values(array_filter($this->_passwords, $passwordMatchesApplication));
+        return array_filter($this->_passwords, $passwordMatchesApplication);
     }
 
     /**
@@ -43,9 +45,13 @@ class PasswordManager
      * @param array $newApplication The application information.
      * @return void
      */
-    public function addPassword(array $newApplication)
+    public function addPassword($name, array $newApplication)
     {
-        $this->_passwords[] = $newApplication;
+        if (isset($this->_passwords[$name])) {
+            throw new Exception("Password already exists for {$name}");
+        }
+
+        $this->_passwords[$name] = $newApplication;
     }
 
     /**

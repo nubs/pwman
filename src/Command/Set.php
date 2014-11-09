@@ -71,7 +71,7 @@ class Set extends Command
                 return 1;
             }
 
-            $passwordManager->addPassword($newApplication);
+            $passwordManager->addPassword($application, $newApplication);
 
             $passwordFile->addEncryptKey($input->getOption('encrypt-key') ?: '');
             $passwordFile->setPasswords($passwordManager->getPasswords());
