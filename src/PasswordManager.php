@@ -32,11 +32,14 @@ class PasswordManager
      */
     public function matchingApplication($application)
     {
-        $passwordMatchesApplication = function($password) use($application) {
-            return isset($password['application']) && preg_match("/{$application}/i", $password['application']);
-        };
+        $result = [];
+        foreach ($this->_passwords as $key => $value) {
+            if (preg_match("/{$application}/i", $key)) {
+                $result[$key] = $value;
+            }
+        }
 
-        return array_filter($this->_passwords, $passwordMatchesApplication);
+        return $result;
     }
 
     /**
