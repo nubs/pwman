@@ -87,7 +87,7 @@ class PasswordFile
      */
     public function setPasswords(array $passwords)
     {
-        $encryptedContents = $this->_gpg->encrypt(json_encode($passwords, JSON_PRETTY_PRINT));
+        $encryptedContents = $this->_gpg->encrypt(json_encode($passwords, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT));
         if ($encryptedContents === false) {
             throw new Exception($this->_gpg->geterror());
         }

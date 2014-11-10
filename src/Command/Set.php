@@ -65,7 +65,7 @@ class Set extends Command
         $editor = $editorFactory->create();
 
         if (empty($matchingPasswords)) {
-            $newApplication = json_decode($editor->editData(new ProcessBuilder(), json_encode($newApplication, JSON_PRETTY_PRINT)), true);
+            $newApplication = json_decode($editor->editData(new ProcessBuilder(), json_encode($newApplication, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
             if ($newApplication === null) {
                 $output->writeln('<error>Invalid json for application!</error>');
                 return 1;

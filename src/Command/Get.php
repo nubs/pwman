@@ -66,7 +66,7 @@ class Get extends Command
     {
         switch ($outputFormat) {
             case 'json':
-                return json_encode($passwords, JSON_PRETTY_PRINT);
+                return json_encode($passwords, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT);
             default:
                 throw new InvalidArgumentException("Invalid format: {$outputFormat}");
         }
