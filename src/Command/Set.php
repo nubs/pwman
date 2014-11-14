@@ -55,7 +55,7 @@ class Set extends Command
         $application = $input->getOption('application') ?: '';
         $username = $input->getOption('username') ?: '';
         $password = $input->getOption('password') ?: '';
-        $newApplication = ['application' => $application, 'username' => $username, 'password' => $password];
+        $newApplication = [$application => ['application' => $application, 'username' => $username, 'password' => $password]];
 
         $passwordManager = new PasswordManager($passwords);
         $matchingPasswords = $passwordManager->matchingApplication($application);
@@ -65,13 +65,15 @@ class Set extends Command
         $editor = $editorFactory->create();
 
         if (empty($matchingPasswords)) {
-            $newApplication = json_decode($editor->editData(new ProcessBuilder(), json_encode($newApplication, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
-            if ($newApplication === null) {
+            $updates = json_decode($editor->editData(new ProcessBuilder(), json_encode($newApplication, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
+            if ($updates === null) {
                 $output->writeln('<error>Invalid json for application!</error>');
                 return 1;
             }
 
-            $passwordManager->addPassword($application, $newApplication);
+            foreach ($updates as $name => $spec) {
+                $passwordManager->addPassword($name, $spec);
+            }
 
             $passwordFile->addEncryptKey($input->getOption('encrypt-key') ?: '');
             $passwordFile->setPasswords($passwordManager->getPasswords());
