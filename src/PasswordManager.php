@@ -59,6 +59,17 @@ class PasswordManager
     }
 
     /**
+     * Remove the given password by unique name.
+     *
+     * @param string $name The unique application name.
+     * @return void
+     */
+    public function removePassword($name)
+    {
+        unset($this->_passwords[$name]);
+    }
+
+    /**
      * Get the passwords.
      *
      * @return array<array> The passwords.
