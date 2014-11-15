@@ -55,32 +55,32 @@ class Set extends Command
         $application = $input->getOption('application') ?: '';
         $username = $input->getOption('username') ?: '';
         $password = $input->getOption('password') ?: '';
-        $newApplication = [$application => ['application' => $application, 'username' => $username, 'password' => $password]];
 
         $passwordManager = new PasswordManager($passwords);
-        $matchingPasswords = $passwordManager->matchingApplication($application);
+        $existingPasswords = $passwordManager->matchingApplication($application);
+        $isCreatingNew = empty($existingPasswords);
+
+        $passwordsToEdit = $isCreatingNew ?
+            [$application => ['application' => $application, 'username' => $username, 'password' => $password]] :
+            $existingPasswords;
 
         $commandLocatorFactory = new WhichLocatorFactory();
         $editorFactory = new EditorFactory($commandLocatorFactory->create());
         $editor = $editorFactory->create();
 
-        if (empty($matchingPasswords)) {
-            $updates = json_decode($editor->editData(new ProcessBuilder(), json_encode($newApplication, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
-            if ($updates === null) {
-                $output->writeln('<error>Invalid json for application!</error>');
-                return 1;
-            }
-
-            foreach ($updates as $name => $spec) {
-                $passwordManager->addPassword($name, $spec);
-            }
-
-            $passwordFile->addEncryptKey($input->getOption('encrypt-key') ?: '');
-            $passwordFile->setPasswords($passwordManager->getPasswords());
-        } else {
-            $stderr = $output instanceof ConsoleOutput ? $output->getErrorOutput() : $output;
-            $stderr->writeln('<error>There already exists an application matching this one.</error>');
+        $updates = json_decode($editor->editData(new ProcessBuilder(), json_encode($passwordsToEdit, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
+        if ($updates === null) {
+            $output->writeln('<error>Invalid json for application!</error>');
             return 1;
         }
+
+        array_map([$passwordManager, 'removePassword'], array_keys($existingPasswords));
+
+        foreach ($updates as $name => $spec) {
+            $passwordManager->addPassword($name, $spec);
+        }
+
+        $passwordFile->addEncryptKey($input->getOption('encrypt-key') ?: '');
+        $passwordFile->setPasswords($passwordManager->getPasswords());
     }
 }
