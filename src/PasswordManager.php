@@ -45,6 +45,7 @@ class PasswordManager
     /**
      * Add the new application to the password list.
      *
+     * @param string $name The unique application name.
      * @param array $newApplication The application information.
      * @return void
      */
