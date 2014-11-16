@@ -58,9 +58,8 @@ class Set extends Command
 
         $passwordManager = new PasswordManager($passwords);
         $existingPasswords = $passwordManager->matchingApplication($application);
-        $isCreatingNew = empty($existingPasswords);
 
-        $passwordsToEdit = $isCreatingNew ?
+        $passwordsToEdit = empty($existingPasswords) ?
             [$application => ['application' => $application, 'username' => $username, 'password' => $password]] :
             $existingPasswords;
 
