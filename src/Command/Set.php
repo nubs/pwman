@@ -79,6 +79,8 @@ class Set extends Command
             $passwordManager->addPassword($name, $spec);
         }
 
+        $passwordManager->sortPasswords();
+
         $passwordFile->addEncryptKey($input->getOption('encrypt-key') ?: '');
         $passwordFile->setPasswords($passwordManager->getPasswords());
     }

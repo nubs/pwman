@@ -78,4 +78,14 @@ class PasswordManager
     {
         return $this->_passwords;
     }
+
+    /**
+     * Sort the passwords.
+     *
+     * @return void
+     */
+    public function sortPasswords()
+    {
+        ksort($this->_passwords);
+    }
 }
