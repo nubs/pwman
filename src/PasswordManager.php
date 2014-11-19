@@ -14,6 +14,7 @@ class PasswordManager
     /**
      * Initialize the password manager.
      *
+     * @api
      * @param array<array> The passwords.
      */
     public function __construct(array $passwords)
@@ -26,6 +27,7 @@ class PasswordManager
      *
      * The application name is used as a regex.
      *
+     * @api
      * @param string $application The application name.
      * @return array<array> The passwords for the applications that match the
      *     application.
@@ -45,6 +47,7 @@ class PasswordManager
     /**
      * Add the new application to the password list.
      *
+     * @api
      * @param string $name The unique application name.
      * @param array $newApplication The application information.
      * @return void
@@ -61,6 +64,7 @@ class PasswordManager
     /**
      * Remove the given password by unique name.
      *
+     * @api
      * @param string $name The unique application name.
      * @return void
      */
@@ -72,6 +76,7 @@ class PasswordManager
     /**
      * Get the passwords.
      *
+     * @api
      * @return array<array> The passwords.
      */
     public function getPasswords()
@@ -82,6 +87,7 @@ class PasswordManager
     /**
      * Sort the passwords.
      *
+     * @api
      * @return void
      */
     public function sortPasswords()

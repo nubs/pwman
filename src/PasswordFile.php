@@ -31,6 +31,7 @@ class PasswordFile
     /**
      * Return all the application passwords out of the password file.
      *
+     * @api
      * @return array<array>|null The passwords in the file if the file could be
      *     loaded.
      */
@@ -52,6 +53,7 @@ class PasswordFile
     /**
      * Add the given encryption key.
      *
+     * @api
      * @param string $key The uid or fingerprint of the key to add.
      * @return void
      */
@@ -81,6 +83,7 @@ class PasswordFile
      *
      * This requires an encryption key to have been added.
      *
+     * @api
      * @see addEncryptKey
      * @param array<array> The passwords to save in the file.
      * @return void

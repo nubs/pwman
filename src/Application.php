@@ -12,6 +12,8 @@ class Application extends SymfonyApplication
 {
     /**
      * Initialize the pwman application with all of the different commands.
+     *
+     * @api
      */
     public function __construct()
     {
