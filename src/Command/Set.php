@@ -3,6 +3,7 @@ namespace Nubs\PwMan\Command;
 
 use GnuPG;
 use Nubs\PwMan\PasswordFile;
+use Nubs\PwMan\PasswordGenerator;
 use Nubs\PwMan\PasswordManager;
 use Nubs\Sensible\CommandFactory\EditorFactory;
 use Nubs\Which\LocatorFactory\PlatformLocatorFactory as WhichLocatorFactory;
@@ -54,7 +55,11 @@ class Set extends Command
 
         $application = $input->getOption('application') ?: '';
         $username = $input->getOption('username') ?: '';
-        $password = $input->getOption('password') ?: '';
+        $password = $input->getOption('password');
+        if (!$password) {
+            $passwordGenerator = new PasswordGenerator();
+            $password = $passwordGenerator();
+        }
 
         $passwordManager = new PasswordManager($passwords);
         $existingPasswords = $passwordManager->matchingApplication($application);
