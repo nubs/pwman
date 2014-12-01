@@ -49,9 +49,7 @@ class Set extends Command
         $passwordFile = new PasswordFile($input->getArgument('password-file'), new GnuPG());
         $passwords = $passwordFile->getPasswords();
         if ($passwords === null) {
-            $stderr = $output instanceof ConsoleOutput ? $output->getErrorOutput() : $output;
-            $stderr->writeln('<error>Failed to load passwords from file!</error>');
-            return 1;
+            return $this->_error('Failed to load passwords from file!');
         }
 
         $application = $input->getOption('application') ?: '';
@@ -75,8 +73,7 @@ class Set extends Command
 
         $updates = json_decode($editor->editData(new ProcessBuilder(), json_encode($passwordsToEdit, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
         if ($updates === null) {
-            $output->writeln('<error>Invalid json for application!</error>');
-            return 1;
+            return $this->_error('Invalid json for application!');
         }
 
         array_map([$passwordManager, 'removePassword'], array_keys($existingPasswords));
@@ -89,5 +86,21 @@ class Set extends Command
 
         $passwordFile->addEncryptKey($input->getOption('encrypt-key') ?: '');
         $passwordFile->setPasswords($passwordManager->getPasswords());
+    }
+
+    /**
+     * Prints an error message and returns the given error code.
+     *
+     * @param \Symfony\Component\Console\Output\OutputInterface $output The command output.
+     * @param string $message The message to output.
+     * @param int $code The return status.
+     * @return int The return status
+     */
+    private function _error(OutputInterface $output, $message, $code = 1)
+    {
+        $stderr = $output instanceof ConsoleOutput ? $output->getErrorOutput() : $output;
+        $stderr->writeln("<error>{$message}</error>");
+
+        return $code;
     }
 }
