@@ -76,13 +76,7 @@ class Set extends Command
             return $this->_error('Invalid json for application!');
         }
 
-        array_map([$passwordManager, 'removePassword'], array_keys($existingPasswords));
-
-        foreach ($updates as $name => $spec) {
-            $passwordManager->addPassword($name, $spec);
-        }
-
-        $passwordManager->sortPasswords();
+        $passwordManager->replacePasswords($existingPasswords, $updates);
 
         $passwordFile->addEncryptKey($input->getOption('encrypt-key') ?: '');
         $passwordFile->setPasswords($passwordManager->getPasswords());

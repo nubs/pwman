@@ -74,6 +74,27 @@ class PasswordManager
     }
 
     /**
+     * Replace one set of passwords with a new set.
+     *
+     * Removes all the passwords in $old, and adds all the passwords in $new.
+     *
+     * @api
+     * @param array $old The old passwords to replace.
+     * @param array $new The new passwords to use instead.
+     * @return void
+     */
+    public function replacePasswords(array $old, array $new)
+    {
+        array_map([$this, 'removePassword'], array_keys($old));
+
+        foreach ($new as $name => $spec) {
+            $this->addPassword($name, $spec);
+        }
+
+        $this->sortPasswords();
+    }
+
+    /**
      * Get the passwords.
      *
      * @api
