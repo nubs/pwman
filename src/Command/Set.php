@@ -53,19 +53,11 @@ class Set extends Command
         }
 
         $application = $input->getOption('application') ?: '';
-        $username = $input->getOption('username') ?: '';
-        $password = $input->getOption('password');
-        if (!$password) {
-            $passwordGenerator = new PasswordGenerator(null, $input->getOption('length') ?: 32);
-            $password = $passwordGenerator();
-        }
 
         $passwordManager = new PasswordManager($passwords);
         $existingPasswords = $passwordManager->matchingApplication($application);
 
-        $passwordsToEdit = empty($existingPasswords) ?
-            [$application => ['application' => $application, 'username' => $username, 'password' => $password]] :
-            $existingPasswords;
+        $passwordsToEdit = empty($existingPasswords) ? $this->_newPasswordTemplate($input) : $existingPasswords;
 
         $commandLocatorFactory = new WhichLocatorFactory();
         $editorFactory = new EditorFactory($commandLocatorFactory->create());
@@ -96,5 +88,24 @@ class Set extends Command
         $stderr->writeln("<error>{$message}</error>");
 
         return $code;
+    }
+
+    /**
+     * Generates the simple format of a new password using command-line options.
+     *
+     * @param \Symfony\Component\Console\Input\InputInterface $input The command input.
+     * @return array The password template.
+     */
+    private function _newPasswordTemplate(InputInterface $input)
+    {
+        $application = $input->getOption('application') ?: '';
+        $username = $input->getOption('username') ?: '';
+        $password = $input->getOption('password');
+        if (!$password) {
+            $passwordGenerator = new PasswordGenerator(null, $input->getOption('length') ?: 32);
+            $password = $passwordGenerator();
+        }
+
+        return [$application => ['application' => $application, 'username' => $username, 'password' => $password]];
     }
 }
