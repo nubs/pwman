@@ -42,7 +42,7 @@ class Get extends Command
         $passwordFile = new PasswordFile($input->getArgument('password-file'), new GnuPG());
         $passwords = $passwordFile->getPasswords();
         if ($passwords === null) {
-            return $this->_error('Failed to load passwords from file!');
+            return $this->_error($output, 'Failed to load passwords from file!');
         }
 
         $passwordManager = new PasswordManager($passwords);

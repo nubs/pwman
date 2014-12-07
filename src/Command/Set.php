@@ -49,7 +49,7 @@ class Set extends Command
         $passwordFile = new PasswordFile($input->getArgument('password-file'), new GnuPG());
         $passwords = $passwordFile->getPasswords();
         if ($passwords === null) {
-            return $this->_error('Failed to load passwords from file!');
+            return $this->_error($output, 'Failed to load passwords from file!');
         }
 
         $application = $input->getOption('application') ?: '';
@@ -65,7 +65,7 @@ class Set extends Command
 
         $updates = json_decode($editor->editData(new ProcessBuilder(), json_encode($passwordsToEdit, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
         if ($updates === null) {
-            return $this->_error('Invalid json for application!');
+            return $this->_error($output, 'Invalid json for application!');
         }
 
         $passwordManager->replacePasswords($existingPasswords, $updates);
