@@ -1,6 +1,7 @@
 <?php
 namespace Nubs\PwMan\Command;
 
+use Exception;
 use GnuPG;
 use Nubs\PwMan\PasswordFile;
 use Nubs\PwMan\PasswordGenerator;
@@ -59,13 +60,10 @@ class Set extends Command
 
         $passwordsToEdit = empty($existingPasswords) ? $this->_newPasswordTemplate($input) : $existingPasswords;
 
-        $commandLocatorFactory = new WhichLocatorFactory();
-        $editorFactory = new EditorFactory($commandLocatorFactory->create());
-        $editor = $editorFactory->create();
-
-        $updates = json_decode($editor->editData(new ProcessBuilder(), json_encode($passwordsToEdit, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
-        if ($updates === null) {
-            return $this->_error($output, 'Invalid json for application!');
+        try {
+            $passwordManager->replacePasswords($existingPasswords, $this->_alterPasswords($passwordsToEdit));
+        } catch (Exception $e) {
+            return $this->_error($output, $e->getMessage());
         }
 
         $passwordManager->replacePasswords($existingPasswords, $updates);
@@ -107,5 +105,26 @@ class Set extends Command
         }
 
         return [$application => ['application' => $application, 'username' => $username, 'password' => $password]];
+    }
+
+    /**
+     * Alters the passwords with the user's changes returning the passwords to use instead.
+     *
+     * @param array $passwords The passwords to replace.
+     * @return array The new passwords to use instead.
+     */
+    private function _alterPasswords(array $passwords)
+    {
+        $commandLocatorFactory = new WhichLocatorFactory();
+        $editorFactory = new EditorFactory($commandLocatorFactory->create());
+        $editor = $editorFactory->create();
+
+        $updates = json_decode($editor->editData(new ProcessBuilder(), json_encode($passwords, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT)), true);
+
+        if ($updates === null) {
+            throw new Exception('Invalid json for application!');
+        }
+
+        return $updates;
     }
 }
