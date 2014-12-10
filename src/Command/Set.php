@@ -66,8 +66,6 @@ class Set extends Command
             return $this->_error($output, $e->getMessage());
         }
 
-        $passwordManager->replacePasswords($existingPasswords, $updates);
-
         $passwordFile->addEncryptKey($input->getOption('encrypt-key') ?: '');
         $passwordFile->setPasswords($passwordManager->getPasswords());
     }
