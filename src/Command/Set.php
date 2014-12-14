@@ -35,7 +35,8 @@ class Set extends Command
             ->addOption('encrypt-key', 'e', InputOption::VALUE_REQUIRED, 'The uid or fingerprint for the encryption key')
             ->addOption('username', 'u', InputOption::VALUE_REQUIRED, 'The username for the application')
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'The password for the application')
-            ->addOption('length', 'l', InputOption::VALUE_REQUIRED, 'The length of the random passwords for the application');
+            ->addOption('length', 'l', InputOption::VALUE_REQUIRED, 'The length of the random passwords for the application')
+            ->addOption('characters', 'c', InputOption::VALUE_REQUIRED, 'The allowed characters to use in randomly generated passwords');
     }
 
     /**
@@ -98,7 +99,7 @@ class Set extends Command
         $username = $input->getOption('username') ?: '';
         $password = $input->getOption('password');
         if (!$password) {
-            $passwordGenerator = new PasswordGenerator(null, $input->getOption('length') ?: 32);
+            $passwordGenerator = new PasswordGenerator($input->getOption('characters'), $input->getOption('length') ?: 32);
             $password = $passwordGenerator();
         }
 
