@@ -99,7 +99,8 @@ class Set extends Command
         $username = $input->getOption('username') ?: '';
         $password = $input->getOption('password');
         if (!$password) {
-            $passwordGenerator = new PasswordGenerator($input->getOption('characters'), $input->getOption('length') ?: 32);
+            $randomCharacterRange = $input->getOption('characters') ?: PasswordGenerator::defaultCharacters();
+            $passwordGenerator = new PasswordGenerator($randomCharacterRange, $input->getOption('length') ?: 32);
             $password = $passwordGenerator();
         }
 

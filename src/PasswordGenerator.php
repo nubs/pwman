@@ -21,9 +21,9 @@ class PasswordGenerator
      * @param string $characters The characters to use in the password.
      * @param int $length The length of the password to generate.
      */
-    public function __construct($characters = null, $length = 32)
+    public function __construct($characters, $length = 32)
     {
-        $this->_characters = $characters ?: self::defaultCharacters();
+        $this->_characters = $characters;
         $this->_length = $length;
     }
 
