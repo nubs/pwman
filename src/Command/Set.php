@@ -36,7 +36,8 @@ class Set extends Command
             ->addOption('username', 'u', InputOption::VALUE_REQUIRED, 'The username for the application')
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'The password for the application')
             ->addOption('length', 'l', InputOption::VALUE_REQUIRED, 'The length of the random passwords for the application')
-            ->addOption('characters', 'c', InputOption::VALUE_REQUIRED, 'The allowed characters to use in randomly generated passwords');
+            ->addOption('characters', 'c', InputOption::VALUE_REQUIRED, 'The allowed characters to use in randomly generated passwords')
+            ->addOption('exclude-characters', 'x', InputOption::VALUE_REQUIRED, 'The characters to exclude from randomly generated passwords');
     }
 
     /**
@@ -99,8 +100,10 @@ class Set extends Command
         $username = $input->getOption('username') ?: '';
         $password = $input->getOption('password');
         if (!$password) {
-            $randomCharacterRange = $input->getOption('characters') ?: PasswordGenerator::defaultCharacters();
-            $passwordGenerator = new PasswordGenerator($randomCharacterRange, $input->getOption('length') ?: 32);
+            $randomCharacterRange = str_split($input->getOption('characters') ?: PasswordGenerator::defaultCharacters());
+            $excludeCharacters = str_split($input->getOption('exclude-characters') ?: []);
+            $randomCharacterRange = array_diff($randomCharacterRange, $excludeCharacters);
+            $passwordGenerator = new PasswordGenerator(join('', $randomCharacterRange), $input->getOption('length') ?: 32);
             $password = $passwordGenerator();
         }
 
