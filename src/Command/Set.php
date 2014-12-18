@@ -98,14 +98,7 @@ class Set extends Command
     {
         $application = $input->getOption('application') ?: '';
         $username = $input->getOption('username') ?: '';
-        $password = $input->getOption('password');
-        if (!$password) {
-            $randomCharacterRange = str_split($input->getOption('characters') ?: PasswordGenerator::defaultCharacters());
-            $excludeCharacters = str_split($input->getOption('exclude-characters') ?: []);
-            $randomCharacterRange = array_diff($randomCharacterRange, $excludeCharacters);
-            $passwordGenerator = new PasswordGenerator(join('', $randomCharacterRange), $input->getOption('length') ?: 32);
-            $password = $passwordGenerator();
-        }
+        $password = $input->getOption('password') ?: $this->_generateRandomPassword($input);
 
         return [$application => ['application' => $application, 'username' => $username, 'password' => $password]];
     }
@@ -129,5 +122,21 @@ class Set extends Command
         }
 
         return $updates;
+    }
+
+    /**
+     * Generates a random password using the command line options.
+     *
+     * @param \Symfony\Component\Console\Input\InputInterface $input The command input.
+     * @return string A random password.
+     */
+    private function _generateRandomPassword(InputInterface $input)
+    {
+        $randomCharacterRange = str_split($input->getOption('characters') ?: PasswordGenerator::defaultCharacters());
+        $excludeCharacters = str_split($input->getOption('exclude-characters') ?: []);
+        $randomCharacterRange = array_diff($randomCharacterRange, $excludeCharacters);
+        $passwordGenerator = new PasswordGenerator(join('', $randomCharacterRange), $input->getOption('length') ?: 32);
+
+        return $passwordGenerator();
     }
 }
