@@ -9,3 +9,16 @@ A password manager than handles encrypted passwords.
 
 ## Requirements
 This package requires PHP 5.4, or newer.
+
+## Installation
+This package uses [composer][composer] so you can install it using composer.
+Composer can install the command globally using:
+```bash
+composer global require nubs/pwman
+```
+
+This will install it to your `$COMPOSER_HOME` directory (typically
+`$HOME/.composer`).  The `pwman` binary will be symlinked to
+`$COMPOSER_HOME/vendor/bin/pwman` (e.g., `$HOME/.composer/vendor/bin/pwman`).
+
+[composer]: https://getcomposer.org
