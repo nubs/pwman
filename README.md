@@ -21,4 +21,7 @@ This will install it to your `$COMPOSER_HOME` directory (typically
 `$HOME/.composer`).  The `pwman` binary will be symlinked to
 `$COMPOSER_HOME/vendor/bin/pwman` (e.g., `$HOME/.composer/vendor/bin/pwman`).
 
+## Usage
+The included `pwman` executable uses subcommands for its different actions.  The subcommands include `pwman get` and `pwman set`.
+
 [composer]: https://getcomposer.org
