@@ -25,4 +25,12 @@ This will install it to your `$COMPOSER_HOME` directory (typically
 The included `pwman` executable uses subcommands for its different actions.
 The subcommands include `pwman get` and `pwman set`.
 
+### Getting passwords
+
+> `pwman get password-file [application]`
+
+### Setting passwords
+
+> `pwman set [-a|--application="..."] [-e|--encrypt-key="..."] [-u|--username="..."] [-p|--password="..."] [-l|--length="..."] [-c|--characters="..."] [-x|--exclude-characters="..."] password-file`
+
 [composer]: https://getcomposer.org
