@@ -7,6 +7,8 @@ A password manager than handles encrypted passwords.
 [![Total Downloads](http://img.shields.io/packagist/dt/nubs/pwman.svg?style=flat)](https://packagist.org/packages/nubs/pwman)
 [![License](http://img.shields.io/packagist/l/nubs/pwman.svg?style=flat)](https://packagist.org/packages/nubs/pwman)
 
+[![Dependency Status](https://www.versioneye.com/user/projects/5565185363613000187c0900/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5565185363613000187c0900)
+
 ## Requirements
 This package requires PHP 5.4, or newer.
 
