@@ -35,4 +35,8 @@ The subcommands include `pwman get` and `pwman set`.
 
 > `pwman set [-a|--application="..."] [-e|--encrypt-key="..."] [-u|--username="..."] [-p|--password="..."] [-l|--length="..."] [-c|--characters="..."] [-x|--exclude-characters="..."] password-file`
 
+## License
+pwman is licensed under the MIT license.  See [LICENSE](LICENSE) for the full
+license text.
+
 [composer]: https://getcomposer.org
