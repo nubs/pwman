@@ -10,7 +10,7 @@ A password manager than handles encrypted passwords.
 [![Dependency Status](https://www.versioneye.com/user/projects/5565185363613000187c0900/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5565185363613000187c0900)
 
 ## Requirements
-This package requires PHP 5.4, or newer.
+This package requires PHP 5.5, or newer.
 
 ## Installation
 This package uses [composer][composer] so you can install it using composer.
