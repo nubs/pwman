@@ -32,6 +32,8 @@ class Set extends Command
             ->setDescription('Sets the password for the specified application')
             ->addArgument('password-file', InputArgument::REQUIRED, 'The path to the encrypted password file')
             ->addOption('application', 'a', InputOption::VALUE_REQUIRED, 'The application to configure')
+            ->addOption('decrypt-key', 'd', InputOption::VALUE_REQUIRED, 'The uid or fingerprint for the decryption key')
+            ->addOption('decrypt-passphrase', 'y', InputOption::VALUE_REQUIRED, 'The passphrase for the decryption key')
             ->addOption('encrypt-key', 'e', InputOption::VALUE_REQUIRED, 'The uid or fingerprint for the encryption key')
             ->addOption('username', 'u', InputOption::VALUE_REQUIRED, 'The username for the application')
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'The password for the application')
@@ -50,6 +52,7 @@ class Set extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $passwordFile = new PasswordFile($input->getArgument('password-file'), new GnuPG());
+        $passwordFile->addDecryptKey($input->getOption('decrypt-key') ?: '', $input->getOption('decrypt-passphrase') ?: '');
         $passwords = $passwordFile->getPasswords();
         if ($passwords === null) {
             return $this->_error($output, 'Failed to load passwords from file!');

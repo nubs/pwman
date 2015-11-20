@@ -27,6 +27,8 @@ class Get extends Command
             ->setDescription('Get password(s) for the specified application(s)')
             ->addArgument('password-file', InputArgument::REQUIRED, 'The path to the encrypted password file')
             ->addArgument('application', InputArgument::OPTIONAL, 'The application(s) to query')
+            ->addOption('decrypt-key', 'd', InputOption::VALUE_REQUIRED, 'The uid or fingerprint for the decryption key')
+            ->addOption('decrypt-passphrase', 'y', InputOption::VALUE_REQUIRED, 'The passphrase for the decryption key')
             ->addOption('output-format', 'f', InputOption::VALUE_REQUIRED, 'The output format (valid: json)', 'json');
     }
 
@@ -40,6 +42,7 @@ class Get extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $passwordFile = new PasswordFile($input->getArgument('password-file'), new GnuPG());
+        $passwordFile->addDecryptKey($input->getOption('decrypt-key') ?: '', $input->getOption('decrypt-passphrase') ?: '');
         $passwords = $passwordFile->getPasswords();
         if ($passwords === null) {
             return $this->_error($output, 'Failed to load passwords from file!');

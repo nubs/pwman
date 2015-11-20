@@ -31,7 +31,10 @@ class PasswordFile
     /**
      * Return all the application passwords out of the password file.
      *
+     * This requires a decryption key to have been added.
+     *
      * @api
+     * @see addDecryptKey
      * @return array<array>|null The passwords in the file if the file could be
      *     loaded.
      */
@@ -48,6 +51,35 @@ class PasswordFile
         }
 
         return json_decode($decryptedContents, true);
+    }
+
+    /**
+     * Add the given decryption key.
+     *
+     * @api
+     * @param string $key The uid or fingerprint of the key to add.
+     * @param string $passphrase The passphrase for the key.
+     * @return void
+     */
+    public function addDecryptKey($key, $passphrase)
+    {
+        $keyInfo = $this->_gpg->keyinfo($key);
+        if (count($keyInfo) !== 1) {
+            throw new Exception('Could not find a unique key');
+        }
+
+        if (!$keyInfo[0]['can_sign']) {
+            throw new Exception('Key not a valid decryption key');
+        }
+
+        $isDecryptionKey = function($subKey) {
+            return $subKey['can_sign'];
+        };
+
+        $decryptionKeys = array_values(array_filter($keyInfo[0]['subkeys'], $isDecryptionKey));
+        if (!$this->_gpg->adddecryptkey($decryptionKeys[0]['fingerprint'], $passphrase)) {
+            throw new Exception('Failed to add the decryption key');
+        }
     }
 
     /**
