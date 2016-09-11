@@ -9,30 +9,31 @@
     "packages": [
         {
             "name": "ircmaxell/random-lib",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ircmaxell/RandomLib.git",
-                "reference": "13efa4368bb2ac88bb3b1459b487d907de4dbf7c"
+                "reference": "e9e0204f40e49fa4419946c677eccd3fa25b8cf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ircmaxell/RandomLib/zipball/13efa4368bb2ac88bb3b1459b487d907de4dbf7c",
-                "reference": "13efa4368bb2ac88bb3b1459b487d907de4dbf7c",
+                "url": "https://api.github.com/repos/ircmaxell/RandomLib/zipball/e9e0204f40e49fa4419946c677eccd3fa25b8cf4",
+                "reference": "e9e0204f40e49fa4419946c677eccd3fa25b8cf4",
                 "shasum": ""
             },
             "require": {
-                "ircmaxell/security-lib": "1.0.*@dev",
+                "ircmaxell/security-lib": "^1.1",
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "mikey179/vfsstream": "1.1.*",
-                "phpunit/phpunit": "3.7.*"
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "mikey179/vfsstream": "^1.6",
+                "phpunit/phpunit": "^4.8|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -59,20 +60,20 @@
                 "random-numbers",
                 "random-strings"
             ],
-            "time": "2015-01-15 16:31:45"
+            "time": "2016-09-07 15:52:06"
         },
         {
             "name": "ircmaxell/security-lib",
-            "version": "1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ircmaxell/SecurityLib.git",
-                "reference": "80934de3c482dcafb46b5756e59ebece082b6dc7"
+                "reference": "f3db6de12c20c9bcd1aa3db4353a1bbe0e44e1b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ircmaxell/SecurityLib/zipball/80934de3c482dcafb46b5756e59ebece082b6dc7",
-                "reference": "80934de3c482dcafb46b5756e59ebece082b6dc7",
+                "url": "https://api.github.com/repos/ircmaxell/SecurityLib/zipball/f3db6de12c20c9bcd1aa3db4353a1bbe0e44e1b5",
+                "reference": "f3db6de12c20c9bcd1aa3db4353a1bbe0e44e1b5",
                 "shasum": ""
             },
             "require": {
@@ -82,6 +83,11 @@
                 "mikey179/vfsstream": "1.1.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "SecurityLib": "lib"
@@ -99,8 +105,8 @@
                 }
             ],
             "description": "A Base Security Library",
-            "homepage": "https://github.com/ircmaxell/PHP-SecurityLib",
-            "time": "2013-04-30 18:00:34"
+            "homepage": "https://github.com/ircmaxell/SecurityLib",
+            "time": "2015-03-20 14:31:23"
         },
         {
             "name": "nubs/sensible",
@@ -213,16 +219,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.9",
+            "version": "v2.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "36e62335caca8a6e909c5c5bac4a8128149911c9"
+                "reference": "3d3e4fa5f0614c8e45220e5de80332322e33bd90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/36e62335caca8a6e909c5c5bac4a8128149911c9",
-                "reference": "36e62335caca8a6e909c5c5bac4a8128149911c9",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3d3e4fa5f0614c8e45220e5de80332322e33bd90",
+                "reference": "3d3e4fa5f0614c8e45220e5de80332322e33bd90",
                 "shasum": ""
             },
             "require": {
@@ -269,7 +275,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 07:20:35"
+            "time": "2016-09-06 10:55:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -332,16 +338,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.8.9",
+            "version": "v2.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "d20332e43e8774ff8870b394f3dd6020cc7f8e0c"
+                "reference": "05a03ed27073638658cab9405d99a67dd1014987"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/d20332e43e8774ff8870b394f3dd6020cc7f8e0c",
-                "reference": "d20332e43e8774ff8870b394f3dd6020cc7f8e0c",
+                "url": "https://api.github.com/repos/symfony/process/zipball/05a03ed27073638658cab9405d99a67dd1014987",
+                "reference": "05a03ed27073638658cab9405d99a67dd1014987",
                 "shasum": ""
             },
             "require": {
@@ -377,7 +383,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-28 11:13:19"
+            "time": "2016-09-06 10:55:00"
         }
     ],
     "packages-dev": [],
